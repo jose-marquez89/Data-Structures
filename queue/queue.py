@@ -1,4 +1,5 @@
 from singly_linked_list.singly_linked_list import LinkedList
+from stack.stack import Stack
 """
 A queue is a data structure whose primary purpose is to store and
 return elements in First In First Out order.
@@ -38,7 +39,7 @@ class Queue:
             return None
 """
 
-
+"""
 class Queue:
     # Using linked list
     def __init__(self):
@@ -55,6 +56,47 @@ class Queue:
     def dequeue(self):
         if self.size != 0:
             out = self.storage.remove_head()
+            self.size -= 1
+            return out
+        else:
+            return None
+"""
+
+
+class Queue:
+    # using stacks
+    def __init__(self):
+        self.size = 0
+        self.incoming = Stack()
+        self.outgoing = Stack()
+
+    def __len__(self):
+        return self.size
+
+    def enqueue(self, value):
+        """Adds an element to the top of the outgoing stack"""
+
+        # put everything on the incoming stack, sequentially
+        while self.outgoing.storage.head is not None:
+            self.incoming.push(
+                self.outgoing.storage.tail.get_value()
+            )
+            self.outgoing.pop()
+
+        # add new value to outgoing stack
+        self.outgoing.push(value)
+        self.size += 1
+
+        # move all older values back to outgoing stack
+        while self.incoming.storage.head is not None:
+            self.outgoing.push(
+                self.incoming.storage.tail.get_value()
+            )
+            self.incoming.pop()
+
+    def dequeue(self):
+        if self.size != 0:
+            out = self.outgoing.pop()
             self.size -= 1
             return out
         else:
