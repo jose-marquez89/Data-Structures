@@ -1,3 +1,4 @@
+from .kyoo import Queue
 """
 Binary search trees are a data structure that enforce an ordering over
 the data they store. That ordering in turn makes it a lot more efficient
@@ -57,9 +58,9 @@ class BSTNode:
     def get_max(self):
         most = self.value
         if self.right:
-            next = self.right.get_max()
-            if next > most:
-                return next
+            nxt = self.right.get_max()
+            if nxt > most:
+                return nxt
         else:
             return most
 
@@ -71,23 +72,35 @@ class BSTNode:
         if self.left:
             self.left.for_each(fn)
 
-
     # Part 2 -----------------------
 
     # Print all the values in order from low to high
     # Hint:  Use a recursive, depth first traversal
     def in_order_print(self, node):
-        if node.left:
-            print(node.left.value)
-        else:
+        if node:
+            node.in_order_print(node.left)
             print(node.value)
-        if node.right:
             node.in_order_print(node.right)
+        else:
+            return
 
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
     def bft_print(self, node):
-        pass
+        q = Queue()
+        q.enqueue(node)
+
+        while len(q) > 0:
+            node = q.dequeue()
+            print(node.value)
+
+            # enqueue left node
+            if node.left:
+                q.enqueue(node.left)
+
+            if node.right:
+                q.enqueue(node.right)
+
 
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
@@ -104,3 +117,12 @@ class BSTNode:
     # Print Post-order recursive DFT
     def post_order_dft(self, node):
         pass
+
+if __name__ == "__main__":
+    bst = BSTNode(1)
+    numbers = [8, 5, 7, 6, 3, 4, 2]
+    for n in numbers:
+        bst.insert(n)
+    bst.in_order_print(bst)
+    print()
+    bst.bft_print(bst)
