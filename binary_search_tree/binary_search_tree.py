@@ -102,7 +102,6 @@ class BSTNode:
             if node.right:
                 q.enqueue(node.right)
 
-
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
     def dft_print(self, node):
@@ -117,7 +116,6 @@ class BSTNode:
             if node.left:
                 stack.push(node.left)
 
-
     # Stretch Goals -------------------------
     # Note: Research may be required
 
@@ -128,6 +126,7 @@ class BSTNode:
     # Print Post-order recursive DFT
     def post_order_dft(self, node):
         pass
+
 
 if __name__ == "__main__":
     bst = BSTNode(1)
