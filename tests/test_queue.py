@@ -1,5 +1,5 @@
 import unittest
-from queue.queue import Queue
+from kyoo.queue import Queue
 
 
 class QueueTests(unittest.TestCase):
